@@ -15,6 +15,7 @@ import {
 
 // @molecules
 import FormInput from '../../molecules/form/input'
+import { useRouter } from 'next/router';
 
 interface IFormValues {
   user: string;
@@ -22,6 +23,7 @@ interface IFormValues {
 }
 
 export default function SignIn() {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const schema = yup.object({
     user: yup.string().required("Nome do usuário é obrigatório."),
@@ -46,6 +48,10 @@ export default function SignIn() {
       setIsLoading(false)
       console.log("handleSubmit", data)
     }, 1000)
+  }
+
+  const redirect = (path: string) => {
+    router.push(path)
   }
 
   return (
@@ -90,6 +96,7 @@ export default function SignIn() {
               variant="default-outline"
               width={"49%"} 
               loadingText='Carregando ...' 
+              onClick={() => redirect('/sign-up')}
             >
               Novo
             </Button>
