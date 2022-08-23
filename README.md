@@ -1,2 +1,10 @@
-# charkra-ui-signin-and-signup-with-atomic
-Projeto para estudar Chakra-ui implementando atomic design :)
+## Iniciando a Aplicação Web (front-end)
+
+1. Instale as dependências com o comando:
+```
+yarn
+```
+2. Execute o projeto com 
+```
+yarn start
+```
