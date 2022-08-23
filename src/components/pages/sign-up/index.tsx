@@ -30,7 +30,7 @@ export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false)
 
   const { createUser } = useUser()
-  const { push } = useRouter();
+  const router = useRouter();
   
   const schema = yup.object({
     name: yup.string().required('Nome obrigatório'),
@@ -55,13 +55,13 @@ export default function SignUp() {
     setIsLoading(true);
     const response = await createUser({ name, email, password })
     if(response){
-      push("/sign-in")
+      router.push("/sign-in")
     }
     setIsLoading(false);
   }
 
   return (
-    <Box width="100%" height="100vh" display="flex" justifyContent={"center"} alignItems="center" data-testid={"sign-in"}>
+    <Box width="100%" height="100vh" display="flex" justifyContent={"center"} alignItems="center" data-testid={"sign-up"}>
       <Grid width="450px" bg={'standard.white'} padding="md">
         <form onSubmit={handleSubmit(onSubmit)} data-testid={"formulario-login"}>
           <GridItem mb="xxxs">
