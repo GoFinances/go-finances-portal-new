@@ -7,29 +7,29 @@ const standard = {
 }
 
 const support = {
-  'primary-light': '#63BB98',
-  'primary-default': '#449C79',
-  'primary-dark': '#007158',
-  'secondary-light': '#C689BF',
-  'secondary-default': '#AF4FA5',
-  'secondary-dark': '#8D3F85',
-  'tertiary-light': '#FFD9D6',
-  'tertiary-default': '#FFA8A3',
-  'tertiary-dark': '#FF7A70'
+  'primary-light': '#E8F6CA',
+  'primary-default': '#dcf2b0',
+  'primary-dark': '#D9F0A8',
+  'secondary-light': '#A6A7B5',
+  'secondary-default': '#8F91A2',
+  'secondary-dark': '#7A7C90',
+  'tertiary-light': '#DCEDFF',
+  'tertiary-default': '#C2DFFF',
+  'tertiary-dark': '#99CAFF'
 }
 
 export const brand = {
-  'primary-extralightest': '#FFF5EF',
-  'primary-lightest': '#FF995A',
-  'primary-light': '#FF7D2D',
-  'primary-default': '#E85A00',
-  'primary-dark': '#BA4700',
-  'primary-darkest': '#903700',
-  'secondary-lightest': '#888CCB',
-  'secondary-light': '#45407F',
-  'secondary-default': '#2E2867',
-  'secondary-dark': '#18134B',
-  'secondary-darkest': '#0A062F'
+  'primary-lightest': '#3E2790',
+  'primary-light': '#301F70',
+  'primary-default': '#231651',
+  'primary-dark': '#150D30',
+  'primary-darkest': '#070410',
+
+  'secondary-lightest': '#F4B27B',
+  'secondary-light': '#F3A668',
+  'secondary-default': '#F19953',
+  'secondary-dark': '#F09042',
+  'secondary-darkest': '#EE852F'
 }
 
 

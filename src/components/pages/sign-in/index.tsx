@@ -29,7 +29,7 @@ interface IFormValues {
 export default function SignIn() {
   const router = useRouter()
   
-  const { userAuthenticated, authenticateMutate, signIn } = useAuthentication()
+  const { authenticateMutate, signIn } = useAuthentication()
 
   const schema = yup.object({
     email: yup.string().required("E-mail é obrigatório.").email("E-mail incorreto"),

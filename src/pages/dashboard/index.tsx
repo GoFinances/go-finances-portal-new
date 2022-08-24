@@ -1,7 +1,17 @@
-import React from 'react'
+import { NextPage } from 'next';
+import Header from '../../components/molecules/header';
 
-export default function Dashboard() {
+import Dashboard from '../../components/pages/dashboard';
+import AuthenticatedLayout from '../../components/template/autenticated';
+
+const DashboardPage: NextPage = () => {
   return (
-    <div>index</div>
+    <AuthenticatedLayout>
+        <Header />
+        <Dashboard />
+    </AuthenticatedLayout>
   )
 }
+
+
+export default DashboardPage;

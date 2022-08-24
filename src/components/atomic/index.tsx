@@ -13,7 +13,22 @@ import {
     FormLabel,
     FormErrorMessage,
     FormHelperText,
- } from './Form'
+} from './Form'
+
+import {
+    Container
+} from './Container'
+
+import {
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem
+} from './Menu'
+
+import {
+    Text
+} from './Text'
 
 export  {
     Box,
@@ -28,4 +43,13 @@ export  {
     FormLabel,
     FormHelperText,
     FormErrorMessage,
+
+    Container,
+
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+
+    Text
 }
