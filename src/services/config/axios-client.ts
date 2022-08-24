@@ -1,8 +1,10 @@
 import { IResponse } from './IResponse';
-import axios from 'axios'
 import qs from 'qs'
+import { parseCookies } from 'nookies'
 
 import { HttpRequest } from './types'
+import { api } from './api-client';
+
 
 const apiURL = process.env.NEXT_PUBLIC_API_BASE_URL
 
@@ -16,7 +18,7 @@ export class AxiosHttpClient {
     }
 
     const baseURL = customURL || apiURL
-    const accessToken = localStorage.getItem('@GOFINANCE:token')
+    const accessToken = parseCookies()['@GOFINANCE:token']
 
     if (accessToken) {
       Object.assign(data, {
@@ -26,10 +28,7 @@ export class AxiosHttpClient {
       })
     }
 
-    console.log('baseURL', baseURL)
-    console.log('url', data.url)
-    
-    const response = await axios.request<IResponse<T>>({
+    const response = await api.request<IResponse<T>>({
       url: `${baseURL}${data.url}`,
       method: data.method,
       data: data.body,

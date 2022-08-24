@@ -1,12 +1,16 @@
 import { useRouter } from "next/router";
 import { createContext, useState, ReactNode, useCallback, useEffect } from "react";
 import { UseMutationResult } from "react-query";
-import { useMutateAuthenticate } from "../hooks/queries/useAuthentication";
+
+import { setCookie, destroyCookie, parseCookies } from 'nookies'
+
+import { useMutateAuthenticate } from "../hooks/queries/authentication";
 
 import { useToast } from "../hooks/use-toast";
 import { LoginResponse, LoginUser } from "../models/authentication/loginUser";
 import { IResponse } from "../services/config/IResponse";
 import { treatmentRequest } from "../services/config/treatmentRequest";
+
 
 interface IAuthenticationProvider {
   children: ReactNode
@@ -38,8 +42,11 @@ const AuthenticationContext = createContext<IAuthenticationContext>({} as IAuthe
 const AuthenticationProvider = ({ children }: IAuthenticationProvider) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<AuthState | undefined>(() => {
-    const token = localStorage.getItem('@GOFINANCE:token');
-    const user = localStorage.getItem('@GOFINANCE:user');
+    const cookies = parseCookies();
+    const { 
+      "@GOFINANCE:token": token,
+      "@GOFINANCE:user": user
+    } = cookies;
 
     if (token && user) {
       return { token, user: JSON.parse(user) };
@@ -47,6 +54,7 @@ const AuthenticationProvider = ({ children }: IAuthenticationProvider) => {
 
     return undefined;
   });
+  
 
   const router = useRouter()
   const { messageToast } = useToast()
@@ -62,11 +70,19 @@ const AuthenticationProvider = ({ children }: IAuthenticationProvider) => {
       const response = await authenticateMutate.mutateAsync(userAuthentication)
       treatmentRequest(response)
 
-      const { token, user } = response.result
+      const { refresh_token, token, user } = response.result
   
-      localStorage.setItem('@GOFINANCE:token', token);
-      localStorage.setItem('@GOFINANCE:user', JSON.stringify(user));
+      setCookie(undefined, '@GOFINANCE:token', token, {
+        maxAge: 60 * 60 * 24 * 30, // 30dias,
+        path: "/"
+      });
+      setCookie(undefined, '@GOFINANCE:refreshToken', refresh_token, {
+        maxAge: 60 * 60 * 24 * 30, // 30dias,
+        path: "/"
+      });
 
+      setCookie(undefined, '@GOFINANCE:user', JSON.stringify(user),);
+      
       setData({ token, user } as AuthState);
     } catch (error) {
       if(error instanceof Error)
@@ -75,7 +91,10 @@ const AuthenticationProvider = ({ children }: IAuthenticationProvider) => {
   }, [authenticateMutate, messageToast]);
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@GOFINANCE:token');
+    destroyCookie(undefined, '@GOFINANCE:token');
+    destroyCookie(undefined, '@GOFINANCE:user');
+    destroyCookie(undefined, '@GOFINANCE:refreshToken');
+
     setData(undefined);
   }, []);
  
