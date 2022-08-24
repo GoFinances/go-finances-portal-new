@@ -4,6 +4,7 @@ import { useMutateUser } from "../hooks/queries/user";
 import { useToast } from "../hooks/use-toast";
 
 import { UserModel } from "../models/user/userModel";
+import { treatmentRequest } from "../services/config/treatmentRequest";
 
 interface IUserProvider {
   children: ReactNode
@@ -31,9 +32,8 @@ const UserProvider = ({ children }: IUserProvider) => {
     var result = true
     try {
       const response = await createUserQuery.mutateAsync(user)
-      if(!response.success)
-        throw new Error(response.message || 'Não foi possível criar seu usuário.')
-
+      treatmentRequest(response)
+      
       messageToast('Parabéns', 'Seu usuário foi criado com sucesso!', { status: "success" })
     } catch (error) {
       if(error instanceof Error)

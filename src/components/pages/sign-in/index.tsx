@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-
+import { useRouter } from 'next/router';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
@@ -15,24 +15,30 @@ import {
 
 // @molecules
 import FormInput from '../../molecules/form/input'
-import { useRouter } from 'next/router';
+
+
+import { useAuthentication } from '../../../hooks/use-authentication';
+
+import { LoginUser } from '../../../models/authentication/loginUser';
 
 interface IFormValues {
-  user: string;
+  email: string;
   password: string;
 }
 
 export default function SignIn() {
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
+  
+  const { userAuthenticated, authenticateMutate, signIn } = useAuthentication()
+
   const schema = yup.object({
-    user: yup.string().required("Nome do usuário é obrigatório."),
+    email: yup.string().required("E-mail é obrigatório.").email("E-mail incorreto"),
     password: yup.string().required("Senha do usuário é obrigatório.")
   }).required();
 
 
   const {
-    formState: { errors, isValidating, isValid},
+    formState: { errors, isValid},
     register,
     handleSubmit
   } = useForm<IFormValues>({
@@ -41,14 +47,9 @@ export default function SignIn() {
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = (data: IFormValues) => {
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false)
-      console.log("handleSubmit", data)
-    }, 1000)
-  }
+  const onSubmit = useCallback((data: IFormValues) => {
+    signIn( { ...data } as unknown as LoginUser )
+  },[signIn])
 
   const redirect = (path: string) => {
     router.push(path)
@@ -60,19 +61,19 @@ export default function SignIn() {
         <form onSubmit={handleSubmit(onSubmit)} data-testid={"formulario-login"}>
           <GridItem mb="xxxs">
             <FormInput 
-              isDisabled={isLoading}
+              isDisabled={authenticateMutate?.isLoading}
               register={register}
-              fieldRegister="user"
-              name="user"
-              label={{ text: "Usuário" }} 
+              fieldRegister="email"
+              name="email"
+              label={{ text: "E-mail" }} 
               errors={errors}
               type="text"
-              placeholder='Informe seu usuário'
+              placeholder='Informe seu e-mail'
             />
           </GridItem>
           <GridItem mb="xxxs">
             <FormInput 
-              isDisabled={isLoading}
+              isDisabled={authenticateMutate?.isLoading}
               register={register}
               fieldRegister="password"
               name="password"
@@ -89,7 +90,7 @@ export default function SignIn() {
               width={"49%"} 
               loadingText='Carregando ...' 
               isDisabled={!isValid} 
-              isLoading={isLoading}
+              isLoading={authenticateMutate?.isLoading}
             >Entrar</Button>
             <Button 
               type={"submit"} 

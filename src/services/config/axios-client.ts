@@ -16,7 +16,7 @@ export class AxiosHttpClient {
     }
 
     const baseURL = customURL || apiURL
-    const accessToken = localStorage.getItem('access_token')
+    const accessToken = localStorage.getItem('@GOFINANCE:token')
 
     if (accessToken) {
       Object.assign(data, {

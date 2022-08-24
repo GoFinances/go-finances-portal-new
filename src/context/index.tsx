@@ -1,12 +1,15 @@
 import React from 'react';
+import { AuthenticationProvider } from './authentication';
 import { UserProvider } from './user';
 
 
 const AppProvider: React.FC<any> = ({ children } : any) => {
     return (
-        <UserProvider>
-            {children}
-        </UserProvider>
+        <AuthenticationProvider>
+            <UserProvider>
+                {children}
+            </UserProvider>
+        </AuthenticationProvider>
     )
 };
 
