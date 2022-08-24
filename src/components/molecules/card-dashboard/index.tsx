@@ -9,7 +9,7 @@ import { Text } from '../../atomic/Text'
 interface ICardDashboard {
     type: "income" | "outcome" | "total"
     description: string;
-    value: string
+    value: string | undefined
 }
 
 export default function CardDashboard({  type, description, value }: ICardDashboard) {
@@ -26,7 +26,7 @@ export default function CardDashboard({  type, description, value }: ICardDashbo
                 <Text as="b" >{description}</Text>
                 <Icon as={type === "income" ? ArrowUpIcon : type === "outcome" ? ArrowDownIcon : InfoOutlineIcon} />
             </Container>
-            <Text  fontSize="md">{value}</Text>
+            <Text  fontSize="md">{value || '-'}</Text>
         </Box>
     )
 }

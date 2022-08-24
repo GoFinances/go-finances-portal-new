@@ -81,6 +81,7 @@ export function setupApiClient(customURL?: string) {
         if (process.browser) {
           destroyCookie(undefined, '@GOFINANCE:token');
           destroyCookie(undefined, '@GOFINANCE:user');
+          window.location.replace('/sign-in')
         }
       }
     }

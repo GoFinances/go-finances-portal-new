@@ -30,6 +30,16 @@ import {
     Text
 } from './Text'
 
+import {
+    TableContainer,
+    Table,
+    Thead,
+    Tr,
+    Th,
+    Tbody,
+    Td
+} from './Table'
+
 export  {
     Box,
     
@@ -51,5 +61,13 @@ export  {
     MenuList,
     MenuItem,
 
-    Text
+    Text,
+
+    TableContainer,
+    Table,
+    Thead,
+    Tr,
+    Th,
+    Tbody,
+    Td
 }
