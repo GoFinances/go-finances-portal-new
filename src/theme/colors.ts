@@ -47,7 +47,7 @@ const inverseBrand = {
 }
 
 
-const feedback = {
+export const feedback = {
   'warning-lightest': '#F7DC7B',
   'warning-light': '#FFE270',
   'warning-default': '#FFD325',

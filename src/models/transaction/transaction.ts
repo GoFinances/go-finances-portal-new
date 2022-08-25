@@ -8,3 +8,8 @@ export interface ITransaction {
     category: { title: string; background_color_light: string; background_color_dark: string; icon: string; };
     created_at: Date;
 }
+
+export interface IGetTransactionsFilter {
+    take: number
+    page: number
+}

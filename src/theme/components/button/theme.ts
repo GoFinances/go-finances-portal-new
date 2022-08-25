@@ -33,12 +33,25 @@ const variants: VariantStyles = {
     color: 'standard.white',
     bgColorHover: 'brand.primary-light'
   }),
+  'brand-secondary-solid': getSolidStyles({
+    bgColor: 'brand.secondary-default',
+    color: 'standard.white',
+    bgColorHover: 'brand.secondary-light'
+  }),
   'default-outline': getOutlineStyles({
     border: '1px solid',
     borderColor: 'neutral.mediumdark',
     bgColorHover: 'brand.primary-lightest',
     borderColorHover: 'brand.primary-lightest',
     color: 'neutral.extradark',
+    colorHover: 'standard.white'
+  }),
+  'secondary-outline': getOutlineStyles({
+    border: '1px solid',
+    borderColor: 'neutral.mediumdark',
+    bgColorHover: 'brand.secondary-lightest',
+    borderColorHover: 'brand.secondary-lightest',
+    color: 'brand.secondary-lightest',
     colorHover: 'standard.white'
   }),
   'neutral-extradark-ghost': getGhostStyles({

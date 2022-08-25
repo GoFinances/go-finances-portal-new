@@ -1,6 +1,9 @@
 import { IResponseTransaction } from './../models/transaction/response-transactions';
-import { httpClient } from './config'
+
+import { httpClient } from './config';
+
 import { IBalance } from '../models/transaction/balance';
+import { IGetTransactionsFilter } from '../models/transaction/transaction';
 
 export const TransactionService = {
     balance: () => {
@@ -9,10 +12,11 @@ export const TransactionService = {
             method: 'get'
         })
     },
-    list: () => {
+    list: (params: IGetTransactionsFilter) => {
         return httpClient.request<IResponseTransaction>({
             url: `/transactions`,
-            method: 'get'
+            method: 'get',
+            params
         })
     }
 }

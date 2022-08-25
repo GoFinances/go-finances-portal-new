@@ -1,3 +1,5 @@
+import { css } from '@chakra-ui/react';
+
 import React from 'react'
 
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '../../atomic'
@@ -6,6 +8,7 @@ import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '../../atomic'
 export interface IHeader {
   label: string;
   id: string;
+  css?: (item:any) => React.CSSProperties | undefined;
 }
 
 interface IList {
@@ -33,10 +36,9 @@ export default function List({ headers, data } : IList) {
         <Tbody>
           {data.map((item:any) => (
               <Tr key={item.id}>
-                {headers.map(header => (
-                  // eslint-disable-next-line react/jsx-key
-                  <Td>{getIdToValue(item, header.id)}</Td>    
-                ))}
+                {headers.map(({css, ...header}:IHeader) => {
+                  return (<Td style={ (css ? css(item) : undefined)} key={header.id}>{getIdToValue(item, header.id)}</Td>    )
+                })}
               </Tr>
             ))}
         </Tbody>
