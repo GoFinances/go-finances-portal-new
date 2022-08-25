@@ -8,14 +8,15 @@ import { feedback } from '../../../theme/colors'
 
 import { Box } from '../../atomic'
 import Paginator from '../../molecules/list/paginator'
+import FilterListTransaction from './filter-list-transaction'
 
 
 export default function ListTransactions() {
   const [headers] = useState<IHeader[]>([
-    { id: 'title', label: 'Título' }, 
+    { id: 'title', label: 'Nome' }, 
     { id: 'formattedValue', label: 'Preço', css:(item: any) => { 
       return { 
-        color: item.type === 'outcome' ? feedback['error-lightest'] : null
+        color: item.type === 'outcome' ? feedback['error-default'] : null,
       }
     } }, 
     { id: 'category.title', label: 'Categoria' },
@@ -31,6 +32,7 @@ export default function ListTransactions() {
 
   return (
     <Box>
+      <FilterListTransaction />
       <List headers={headers} data={transactions}  />
       <Paginator 
         currentPage={filter.page}

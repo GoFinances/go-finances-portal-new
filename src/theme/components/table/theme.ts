@@ -33,7 +33,6 @@ const TableTheme: TableConfig = {
     baseStyle: {
       table: {
         bg: 'standard.white',
-        marginY: "xxxs",
         borderRadius: 'md',
         thead : {
           tr :{

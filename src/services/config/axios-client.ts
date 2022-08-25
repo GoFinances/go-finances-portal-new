@@ -35,7 +35,7 @@ export class AxiosHttpClient {
       params: data.params,
       headers: data.headers,
       paramsSerializer: params => {
-        return qs.stringify(params, { arrayFormat: 'repeat' })
+        return qs.stringify(params)
       }
     })
 

@@ -42,8 +42,8 @@ export default function Paginator({
 
   let lastPage = paginationRange[paginationRange.length - 1];
   return (
-    <Box display='flex' alignItems='center' justifyContent="space-between">
-      <Text>Quantidade de resultado(s): {totalCount}</Text>
+    <Box display='flex' alignItems='center' justifyContent="space-between" mt="nano">
+      <Text>Nº de resultado(s): {totalCount}</Text>
       <Box>
         <Button variant='default-outline' disabled={currentPage === 1} mr="nano" onClick={onPrevious} >
           <ChevronLeftIcon w={8} h={8} color="red.500" />

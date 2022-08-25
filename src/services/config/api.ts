@@ -30,7 +30,6 @@ export function setupApiClient(customURL?: string) {
         const { "@GOFINANCE:refreshToken": refreshToken } = cookies;
         const originalConfig = error.config;
 
-        console.log("refreshToken",refreshToken)
         if (!isRefreshing) {
           isRefreshing = true;
 

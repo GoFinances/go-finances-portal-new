@@ -20,6 +20,16 @@ export interface ITransactionContext {
     totalTransaction: number
     filter: IGetTransactionsFilter
     changePage: (page: number) => void
+    changeFilter: (filter: IGetTransactionsFilter) => void
+}
+
+const initialFilter:IGetTransactionsFilter = {
+    take: 10,
+    page: 1,
+    category_id: [],
+    type: "all",
+    dt_init: Format.dateToDateSql(new Date(new Date().getFullYear(), new Date().getMonth(), 1)),
+    dt_end: Format.dateToDateSql(new Date())
 }
 
 
@@ -29,13 +39,12 @@ const TransactionProvider = ({ children }: ITransactionProvider) => {
     const [totalTransaction, setTotalTransaction] = useState<number>(0)
     const [balance, setBalance] = useState<IBalance | undefined>(undefined)
     const [transactions, setTransactions] = useState<ITransaction[]>([])
-    const [filter, setFilter] = useState<IGetTransactionsFilter>({ take: 10, page: 1 })
+    const [filter, setFilter] = useState<IGetTransactionsFilter>(initialFilter)
     const transactionQuery = useQueryTransactions(filter)
 
     const { messageToast } = useToast()
 
     useEffect(() => {
-        console.log('filter', filter)
         if (transactionQuery.data) {
             transactionQuery.refetch()
         }
@@ -54,10 +63,10 @@ const TransactionProvider = ({ children }: ITransactionProvider) => {
                 balance.total_formatted = Format.numberToMoney(balance.total)
                 
                 transactions.forEach(transaction => {
-                    const { value, type, created_at } = transaction
+                    const { value, type, dt_reference } = transaction
                     transaction.value = type === 'outcome' ? value * -1 : value
                     transaction.formattedValue = Format.numberToMoney(transaction.value)
-                    transaction.formattedDate = Format.dateSqlToDate(created_at)
+                    transaction.formattedDate = Format.dateSqlToDate(String(dt_reference))
                 })
     
                 setTotalTransaction(total);
@@ -70,9 +79,13 @@ const TransactionProvider = ({ children }: ITransactionProvider) => {
         }
     },[transactionQuery.data, messageToast])
 
+    const changeFilter = useCallback((filter: IGetTransactionsFilter)=> { 
+        setFilter({ ...filter })
+    },[])
+
     const changePage = useCallback((page: number) => {
         setFilter({ ...filter,  page})
-    },[])
+    },[filter])
 
     return (
         <TransactionContext.Provider value={{
@@ -80,6 +93,7 @@ const TransactionProvider = ({ children }: ITransactionProvider) => {
             transactions,
             totalTransaction,
             filter,
+            changeFilter,
             changePage
         }}>
         {children}

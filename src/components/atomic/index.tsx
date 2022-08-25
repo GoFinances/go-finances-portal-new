@@ -23,12 +23,20 @@ import {
     Menu,
     MenuButton,
     MenuList,
-    MenuItem
+    MenuItem,
+    MenuDivider,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuItemOption
 } from './Menu'
 
 import {
     Text
 } from './Text'
+
+import {
+    Flex
+} from './Flex'
 
 import {
     TableContainer,
@@ -60,6 +68,10 @@ export  {
     MenuButton,
     MenuList,
     MenuItem,
+    MenuDivider,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuItemOption,
 
     Text,
 
@@ -69,5 +81,7 @@ export  {
     Tr,
     Th,
     Tbody,
-    Td
+    Td,
+
+    Flex
 }

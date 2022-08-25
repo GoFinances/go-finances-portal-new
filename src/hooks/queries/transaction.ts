@@ -13,8 +13,8 @@ const getBalance = async () => {
   return response.data
 }
 
-const getTransactions = async (body :IGetTransactionsFilter) => {
-  const response = await TransactionService.list(body)
+const getTransactions = async (params :IGetTransactionsFilter) => {
+  const response = await TransactionService.list(params)
   return response.data
 }
 
