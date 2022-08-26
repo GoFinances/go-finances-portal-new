@@ -32,6 +32,13 @@ interface IFormValues {
 
 const initialMonth = () => Intl.DateTimeFormat('pt-BR').format(new Date(new Date().getFullYear(), new Date().getMonth(), 1)).replaceAll('/','-').split('-').reverse().join('-')
 const maxDate = () => Intl.DateTimeFormat('pt-BR').format(new Date()).replaceAll('/','-').split('-').reverse().join('-')
+const defaultValues = {
+    category_id: [],
+    type :'all',
+    dt_init : initialMonth(),
+    dt_end : maxDate(),
+    search: ''
+}
 
 export default function FilterListTransaction({
 
@@ -54,14 +61,11 @@ export default function FilterListTransaction({
         handleSubmit,
         setValue,
         getValues,
+        reset
     } = useForm<IFormValues>({
+        mode:"all",
         resolver: yupResolver(schema),
-        defaultValues:{
-            category_id: [],
-            type :"all",
-            dt_init : initialMonth(),
-            dt_end : maxDate(),
-        }
+        defaultValues
     })
 
     const handleCategoryId = useCallback((values: string[] | undefined) => {
@@ -72,7 +76,7 @@ export default function FilterListTransaction({
         setValue('type', value || "")
     },[setValue])
 
-    const onSubmit = async ({ dt_init, dt_end, ...data }: IFormValues) => {
+    const onSubmit = useCallback( async ({ dt_init, dt_end, ...data }: IFormValues) => {
         changeFilter({ 
             ...filter, 
             ...data, 
@@ -80,7 +84,7 @@ export default function FilterListTransaction({
             dt_end: Format.dateLibToDateSql(dt_end),
             page: 1 
         })
-    }
+    }, [changeFilter, filter])
 
     return (
         <Filter>
@@ -116,6 +120,7 @@ export default function FilterListTransaction({
                 </GridItem>
                 <GridItem mb="xxxs" mr="nano">
                     <FormSelectMulti 
+                        defaultValue={getValues("category_id")}
                         isDisabled={false}
                         register={register}
                         fieldRegister="category_id"
@@ -158,7 +163,8 @@ export default function FilterListTransaction({
                     </GridItem>
                 </GridItem>
                 <GridItem mb="xxxs" display="flex" mr="nano" alignItems="flex-end">
-                    <Button type='submit' variant="brand-primary-solid" >Buscar</Button>
+                    <Button type='submit' variant="brand-primary-solid" size={'sm'} >Buscar</Button>
+                    <Button variant="neutral-extralight-solid" ml="xxxs" onClick={() => reset(defaultValues)}  size={'sm'} >Limpar</Button>
                 </GridItem>
 
             </form>

@@ -39,10 +39,9 @@ const FormSelectMulti = (props: Props) => {
     label,
     errors,
     options,
-    placeholder,
     ...selectProps
   } = props
-
+  
   return (
     <FormField name={name} label={label} error={errors[name]}>
       <MultiSelectMenu 
@@ -51,6 +50,7 @@ const FormSelectMulti = (props: Props) => {
         onChange={onChange}
         fieldRegister={fieldRegister}
         register={register}
+        {...selectProps}
       />
     </FormField>
   )

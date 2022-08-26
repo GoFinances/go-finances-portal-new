@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useCallback, useEffect, useState } from "react";
 
-import * as Icons from 'react-icons/all'
+import * as Icons from 'react-icons/fa'
 
 import { ICategory } from "../models/category/category";
 import { IOption } from "../models/option";

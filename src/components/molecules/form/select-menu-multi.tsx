@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { forwardRef, MenuButtonProps } from "@chakra-ui/react";
 
@@ -36,10 +36,12 @@ type MultiSelectMenuProps = MenuButtonProps & {
   label: string
   fieldRegister: Path<any>;
   register: UseFormRegister<any>;
+  defaultValue: string[]
 }
 
 export const MultiSelectMenu = forwardRef<MultiSelectMenuProps, 'input'>((props, ref) => {
   const { 
+    register,
     onChange,
     options,
     size = 'sm',
@@ -47,13 +49,17 @@ export const MultiSelectMenu = forwardRef<MultiSelectMenuProps, 'input'>((props,
     isInvalid = false,
     label,
     fieldRegister,
-    register,
+    defaultValue,
     ...menuButtonProps
   } = props
-  
+
   const [isOpen, setIsOpen] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const buttonRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(()=>{
+    setSelectedOptions(defaultValue)
+  },[defaultValue])
 
   const borderColor = selectedOptions ? 'neutral.darkest' : 'neutral.default'
 
@@ -95,7 +101,6 @@ export const MultiSelectMenu = forwardRef<MultiSelectMenuProps, 'input'>((props,
             <MenuGroup title={undefined}>
               <MenuItem
                 onClick={() => {
-                  setSelectedOptions([]);
                   onChange([])
                   onClose();
                 }}
@@ -111,14 +116,12 @@ export const MultiSelectMenu = forwardRef<MultiSelectMenuProps, 'input'>((props,
                 setSelectedOptions(values.filter((value) => value.length));
                 onChange?.(values);
               }}
+              // defaultValue={defaultValue}
             >
               {options.map(({ id, description, icon }) => {
                 let Icon = icon
                 return (
-                  <MenuItemOption
-                    key={`multiselect-menu-${id}`}
-                    value={id}
-                  >
+                  <MenuItemOption key={`multiselect-menu-${id}`} value={id} isChecked={true} >
                     <Box display='flex' justifyContent='space-between' alignItems='center'>
                       <Text>
                         {description}
