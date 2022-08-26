@@ -14,7 +14,10 @@ import {
     MenuList, 
     MenuItem,
     Text,
-    Input
+    Input,
+    MenuOptionGroup,
+    Box,
+    MenuItemOption
 } from '../../atomic'
 
 type ButtonSizes = 'sm' | 'md' | 'lg'
@@ -120,36 +123,27 @@ export const SelectMenu = forwardRef<Props, 'input'>((props, ref) => {
         textAlign="left"
         {...menuButtonProps}
       >
-        <Text
-          w="100%"
-          fontWeight={400}
-          noOfLines={1}
-          wordBreak="break-word"
-          textAlign="start"
-        >
-          {selectedOption ? selectedOption.description : placeholder}
-        </Text>
+         {`${selectedOption ? selectedOption.description : placeholder}`}
       </MenuButton>
-      <MenuList
-        borderRadius="sm"
-        padding="0"
-        fontSize="xxs"
-        border="2px"
-        borderColor="brand.primary-default"
-        overflow={maxOptionsHeight === '100%' ? 'hidden' : 'auto'}
-        width={optionsWidth}
-        maxHeight={maxOptionsHeight}
-      >
-        {options.map((option, index) => {
-          const Icon = option.icon
-          return (
-            <MenuItem display='flex' justifyContent='space-between' alignItems='center' key={index} onClick={() => handleChange(option)}>
-              <Flex align="center">{option.description}</Flex>
-              {Icon && <Icon color={`${brand["secondary-default"]}`} />}
-              
-            </MenuItem>
-          )
-        })}
+      <MenuList>
+          <MenuOptionGroup title={undefined} type="checkbox">
+            {options.map((option) => {
+              const {id, description , icon } = option
+              let Icon = icon
+              return (
+                <MenuItemOption
+                  key={`multiselect-menu-${id}`}
+                  value={id}
+                  onClick={()=> handleChange(option)}
+                >
+                  <Box display='flex' justifyContent='space-between' alignItems='center'>
+                    <Flex align="center">{description}</Flex>
+                    {Icon && <Icon color={`${brand["secondary-default"]}`} />}
+                  </Box>
+                </MenuItemOption>
+              );
+            })}
+          </MenuOptionGroup>
       </MenuList>
     </Menu>
   )

@@ -68,10 +68,9 @@ export const MultiSelectMenu = forwardRef<MultiSelectMenuProps, 'input'>((props,
       {({ onClose }) => (
         <>
           <Input
+            ref={ref}
             hidden
-            value={selectedOptions}
-            onChange={() => ({}) as any}
-            {...register(fieldRegister)}
+            onChange={() => ({})}
           />
           <MenuButton
             data-testid="menu-button"
