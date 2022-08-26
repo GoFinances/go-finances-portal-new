@@ -5,6 +5,8 @@ import * as yup from "yup";
 
 import { useForm } from 'react-hook-form';
 
+import { FaArrowAltCircleUp, FaArrowAltCircleDown, FaMoneyBillAlt } from 'react-icons/fa'
+
 import { Button, GridItem } from '../../../atomic'
 
 import FormInput from '../../../molecules/form/input'
@@ -12,8 +14,10 @@ import Filter from '../../../molecules/list/paginator/filter';
 import FormSelectMulti from '../../../molecules/form/select-multi';
 import FormSelect from '../../../molecules/form/select';
 
-import { useTransaction } from '../../../../hooks/use-transacion';
 import { Format } from '../../../../utils/format';
+
+import { useTransaction } from '../../../../hooks/use-transacion';
+import { useCategory } from '../../../../hooks/use-category';
 
 
 interface IFilterListTransaction {}
@@ -33,6 +37,7 @@ export default function FilterListTransaction({
 
 }: IFilterListTransaction) {
     const { filter, changeFilter } = useTransaction()
+    const { getCategoriesOption } = useCategory()
 
     const schema = yup.object({
         search:yup.string(),
@@ -52,6 +57,7 @@ export default function FilterListTransaction({
     } = useForm<IFormValues>({
         resolver: yupResolver(schema),
         defaultValues:{
+            category_id: [],
             type :"all",
             dt_init : initialMonth(),
             dt_end : maxDate(),
@@ -78,7 +84,7 @@ export default function FilterListTransaction({
 
     return (
         <Filter>
-            <form onSubmit={handleSubmit(onSubmit)} data-testid={"form-filter-list-transaction"} style={{ display: "flex", alignItems: 'baseline' }}>
+            <form onSubmit={handleSubmit(onSubmit)} data-testid={"form-filter-list-transaction"} style={{ display: "flex" }}>
                 <GridItem mb="xxxs" mr="nano">
                     <FormInput 
                         defaultValue={getValues("search")}
@@ -101,7 +107,11 @@ export default function FilterListTransaction({
                         label={{ text: "Tipo" }} 
                         errors={errors}
                         placeholder='Selecione um tipo'
-                        options={[{ id: "all", description: "Ambos" }, { id: "income", description: "Entrada" }, { id: "outcome", description: "Saída" }]}
+                        options={[
+                            { id: "all", description: "Ambos", icon: FaMoneyBillAlt },
+                            { id: "income", description: "Entrada", icon: FaArrowAltCircleUp },
+                            { id: "outcome", description: "Saída", icon: FaArrowAltCircleDown }
+                        ]}
                     />
                 </GridItem>
                 <GridItem mb="xxxs" mr="nano">
@@ -114,12 +124,7 @@ export default function FilterListTransaction({
                         errors={errors}
                         placeholder='Selecione uma categoria'
                         onChange={handleCategoryId}
-                        options={[
-                            {id: 'c8785ec6-3396-4119-913c-9da5edee4c10', description: 'Categoria 1'},
-                            {id: 'c4cdef3b-76bb-4e23-a287-fe779c7b48b0', description: 'Categoria 2'},
-                            {id: 'e05bd6e0-cca3-485b-971c-dda56d211a79', description: 'Categoria 3'},
-                            {id: 'b23b6a94-9a0a-447e-bb22-85ec25ed50da', description: 'Categoria 4'}
-                        ]}
+                        options={getCategoriesOption()}
                     />
                 </GridItem>
                 <GridItem mb="xxxs" display="flex" mr="nano">
@@ -152,8 +157,10 @@ export default function FilterListTransaction({
                         />
                     </GridItem>
                 </GridItem>
+                <GridItem mb="xxxs" display="flex" mr="nano" alignItems="flex-end">
+                    <Button type='submit' variant="brand-primary-solid" >Buscar</Button>
+                </GridItem>
 
-                <Button type='submit' variant="brand-primary-solid" >Buscar</Button>
             </form>
         </Filter>
     )

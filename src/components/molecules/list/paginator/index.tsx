@@ -42,11 +42,11 @@ export default function Paginator({
 
   let lastPage = paginationRange[paginationRange.length - 1];
   return (
-    <Box display='flex' alignItems='center' justifyContent="space-between" mt="nano">
+    <Box display='flex' alignItems='center' justifyContent="space-between" mt="nano" fontWeight="600">
       <Text>Nº de resultado(s): {totalCount}</Text>
       <Box>
-        <Button variant='default-outline' disabled={currentPage === 1} mr="nano" onClick={onPrevious} >
-          <ChevronLeftIcon w={8} h={8} color="red.500" />
+        <Button variant='brand-primary-solid' disabled={currentPage === 1} mr="nano" onClick={onPrevious} >
+          <ChevronLeftIcon w={8} h={8} />
         </Button>
         {paginationRange.map(pageNumber => {
           if (pageNumber === DOTS) {
@@ -59,8 +59,8 @@ export default function Paginator({
             </Button>
           );
         })}
-        <Button variant='default-outline' disabled={lastPage === currentPage} onClick={onNext}>
-          <ChevronRightIcon w={8} h={8} color="red.500" />
+        <Button variant='brand-primary-solid' disabled={lastPage === currentPage} onClick={onNext}>
+          <ChevronRightIcon w={8} h={8} />
         </Button>
       </Box>
     </Box>

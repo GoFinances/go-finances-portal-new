@@ -1,7 +1,13 @@
+import React, { useRef, useState } from "react";
+
 import { forwardRef, MenuButtonProps } from "@chakra-ui/react";
 
-import React, { useRef, useState } from "react";
 import { Path, UseFormRegister } from "react-hook-form";
+
+import { brand } from "../../../theme/colors";
+
+import { IOption } from "../../../models/option";
+
 
 import {
   Menu,
@@ -13,13 +19,11 @@ import {
   MenuOptionGroup,
   MenuItemOption,
   Button,
-  Input
+  Input,
+  Text,
+  Box
 } from "../../atomic";
 
-export type IOption = {
-  id: string
-  description: string
-}
 
 type ButtonSizes = 'sm' | 'md' | 'lg'
 
@@ -97,7 +101,7 @@ export const MultiSelectMenu = forwardRef<MultiSelectMenuProps, 'input'>((props,
                   onClose();
                 }}
               >
-                Clear all
+                Limpar
               </MenuItem>
             </MenuGroup>
             <MenuDivider />
@@ -109,13 +113,19 @@ export const MultiSelectMenu = forwardRef<MultiSelectMenuProps, 'input'>((props,
                 onChange?.(values);
               }}
             >
-              {options.map((option) => {
+              {options.map(({ id, description, icon }) => {
+                let Icon = icon
                 return (
                   <MenuItemOption
-                    key={`multiselect-menu-${option.id}`}
-                    value={option.id}
+                    key={`multiselect-menu-${id}`}
+                    value={id}
                   >
-                    {option.description}
+                    <Box display='flex' justifyContent='space-between' alignItems='center'>
+                      <Text>
+                        {description}
+                      </Text>
+                      <Icon color={brand["secondary-default"]} />
+                    </Box>
                   </MenuItemOption>
                 );
               })}

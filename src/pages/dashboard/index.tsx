@@ -9,7 +9,6 @@ const DashboardPage: NextPage = () => {
   return (
     <TransactionProvider>
       <AuthenticatedLayout>
-          <Header />
           <Dashboard />
       </AuthenticatedLayout>
     </TransactionProvider>

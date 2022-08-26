@@ -7,7 +7,7 @@ import ListTransactions from '../../organisms/list-transactions'
 
 export default function Dashboard() {
   return (
-    <Box p="xxxs">
+    <Box>
       <MenuDash />
       <ListTransactions />
     </Box>    

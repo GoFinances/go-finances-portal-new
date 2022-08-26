@@ -5,17 +5,12 @@ import {
   FieldErrorsImpl,
 } from 'react-hook-form'
 
+import { IOption } from '../../../models/option'
+
 import FormField, { FieldLabel } from './field'
 import { SelectMenu } from './select-menu'
 
-
-
 export type SelectSizes = 'xs' | 'sm' | 'md' | 'lg'
-
-type IOption = {
-  description: string
-  id: (string | number)
-}
 
 type Props = ButtonProps & {
   defaultID: string

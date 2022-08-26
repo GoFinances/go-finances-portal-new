@@ -20,7 +20,9 @@ export default function Header() {
     <Container
         maxWidth={"100%"}
         width={"100%"}
-        p="xxxs"
+        py="xxxs"
+        px="xxxl"
+        
         m="0"
         bg="brand.primary-default"
         display="flex"

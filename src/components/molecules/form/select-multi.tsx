@@ -7,8 +7,11 @@ import {
   UseFormRegister,
 } from 'react-hook-form'
 
+import { IOption } from '../../../models/option'
+
 import FormField, { FieldLabel } from './field'
-import { IOption, MultiSelectMenu } from './select-menu-multi'
+
+import { MultiSelectMenu } from './select-menu-multi'
 
 
 export type SelectSizes = 'xs' | 'sm' | 'md' | 'lg'
@@ -28,15 +31,15 @@ type Props = SelectProps & {
 
 const FormSelectMulti = (props: Props) => {
   const {
-    fieldRegister,
+    onChange,
     register,
+    fieldRegister,
     size = 'sm',
     name,
     label,
     errors,
     options,
     placeholder,
-    onChange,
     ...selectProps
   } = props
 

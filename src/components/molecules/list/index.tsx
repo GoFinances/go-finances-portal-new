@@ -1,31 +1,60 @@
-import { css } from '@chakra-ui/react';
-
 import React from 'react'
+import * as Icons from 'react-icons/fa';
 
-import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '../../atomic'
+import { SmallCloseIcon, EditIcon } from '@chakra-ui/icons';
+
+import { Box, Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '../../atomic'
+import { brand } from '../../../theme/colors';
 
 
 export interface IHeader {
-  label: string;
-  id: string;
-  css?: (item:any) => React.CSSProperties | undefined;
+  label: string
+  id: string
+  row_custom?: "ROW_ICON_WITH_LABEL"
+  icon?: string
+  css?: (item:any) => React.CSSProperties | undefined
 }
 
-interface IList {
+interface IList{
   headers: IHeader[];
   data: any[]
 }
 
 const getIdToValue = (item: any, id: string) : any => {
-  if(id.split('.').length === 1)
-    return item[id] 
+  if(id.split('.').length === 1){
+    return  item[id]
+  }
 
   const [firstId, ...newIdSplit] = id.split('.')
-  const newId = newIdSplit.join('.')
+  id = newIdSplit.join('.')
 
-  return getIdToValue(item[firstId], newId)
+  return getIdToValue(item[firstId], id)
 }
 
+const RowDefault = ({ css, id }:IHeader, item: any) => {
+  return (<Td style={ (css ? css(item) : undefined)} key={id}>{getIdToValue(item, id)}</Td>)
+}
+
+const RowIconWithLabel = ({ css, id, icon }:IHeader, item: any) => {
+  const [_,iconName] = (getIdToValue(item, icon || "") as String).split('/');
+  const Icon = (Icons as any)[iconName];
+
+  return (
+    <Td style={ (css ? css(item) : undefined)} key={id}>
+      <Box display='flex' alignItems='center' justifyContent='space-between'>
+        {getIdToValue(item, id)}
+        <Icon color={brand["secondary-default"]} w={5} h={5} />
+      </Box>
+    </Td>
+  )
+}
+
+const rowShow = () => {
+  return {
+    "ROW_DEFAULT" : RowDefault,
+    "ROW_ICON_WITH_LABEL" : RowIconWithLabel
+  }
+}
 export default function List({ headers, data } : IList) {
   return (
     <TableContainer>
@@ -36,9 +65,13 @@ export default function List({ headers, data } : IList) {
         <Tbody>
           {data.map((item:any) => (
               <Tr key={item.id}>
-                {headers.map(({css, ...header}:IHeader) => {
-                  return (<Td style={ (css ? css(item) : undefined)} key={header.id}>{getIdToValue(item, header.id)}</Td>    )
+                {headers.map((header:IHeader) => {
+                  return rowShow()[header.row_custom || "ROW_DEFAULT"](header, item)
                 })}
+                <Td display="flex" justifyContent="space-around">
+                  <Button variant='brand-primary-solid' size={'sm'} ><EditIcon w={4} h={4} /></Button>
+                  <Button variant='brand-primary-solid' size={'sm'} ><SmallCloseIcon w={4} h={4} /></Button>
+                </Td>
               </Tr>
             ))}
         </Tbody>

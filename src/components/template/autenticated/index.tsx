@@ -1,8 +1,8 @@
 import React from 'react'
 
-import {
-    Box
-} from '@chakra-ui/react'
+import { Box } from '../../atomic'
+
+import Header from '../../molecules/header'
 
 type IAuthenticatedLayoutProps = {
     children: React.ReactNode
@@ -11,8 +11,9 @@ type IAuthenticatedLayoutProps = {
 export default function AuthenticatedLayout({ children }: IAuthenticatedLayoutProps) {
   return (
     <Box bg={'standard.light'} minHeight="100vh">
-        <Box bg={'standard.light'} height="100%">
-            {children}
+        <Header />
+        <Box bg={'standard.light'} height="100%" py="xxxs" px="xxxl" >
+          {children}
         </Box>
     </Box>
   )

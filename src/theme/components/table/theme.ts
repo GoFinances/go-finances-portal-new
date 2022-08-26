@@ -37,18 +37,21 @@ const TableTheme: TableConfig = {
         thead : {
           tr :{
             height: "45px",
-            color: 'brand.secondary-darkest'
+            color: 'brand.primary-darkest',
+            fontSize: 'xxs',
           }
         },
         tbody : {
           tr :{
             height: "45px",
-            color: 'brand.primary-default'
+            color: 'brand.primary-default',
+            fontSize: 'xxs',
           }
         },
         tfoot : {
           tr :{
-            height: "45px"
+            height: "45px",
+            fontSize: 'xxs',
           }
         }
       }

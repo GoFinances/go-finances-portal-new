@@ -17,11 +17,11 @@ export default function ListTransactions() {
     { id: 'formattedValue', label: 'Preço', css:(item: any) => { 
       return { 
         color: item.type === 'outcome' ? feedback['error-default'] : null,
+        fontWeight: 600
       }
-    } }, 
-    { id: 'category.title', label: 'Categoria' },
+    }}, 
+    { id: 'category.title', label: 'Categoria' , row_custom: 'ROW_ICON_WITH_LABEL', icon: 'category.icon'},
     { id: 'formattedDate', label: 'Data' },
-    { id: '', label: '' }
   ])
   const { 
     changePage,

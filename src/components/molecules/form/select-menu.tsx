@@ -2,6 +2,10 @@
 import { forwardRef, ButtonProps } from '@chakra-ui/react'
 import React, { useEffect, useRef, useState } from 'react'
 
+import { brand } from '../../../theme/colors'
+
+import { IOption } from '../../../models/option'
+
 import {
     Button,
     Flex,
@@ -12,11 +16,6 @@ import {
     Text,
     Input
 } from '../../atomic'
-
-type IOption = {
-  description: string
-  id: (string | number)
-}
 
 type ButtonSizes = 'sm' | 'md' | 'lg'
 
@@ -141,11 +140,16 @@ export const SelectMenu = forwardRef<Props, 'input'>((props, ref) => {
         width={optionsWidth}
         maxHeight={maxOptionsHeight}
       >
-        {options.map((option, index) => (
-          <MenuItem key={index} onClick={() => handleChange(option)}>
-            <Flex align="center">{option.description}</Flex>
-          </MenuItem>
-        ))}
+        {options.map((option, index) => {
+          const Icon = option.icon
+          return (
+            <MenuItem display='flex' justifyContent='space-between' alignItems='center' key={index} onClick={() => handleChange(option)}>
+              <Flex align="center">{option.description}</Flex>
+              {Icon && <Icon color={`${brand["secondary-default"]}`} />}
+              
+            </MenuItem>
+          )
+        })}
       </MenuList>
     </Menu>
   )
