@@ -1,15 +1,14 @@
-import { NextPage } from 'next';
+import { NextPage } from "next";
 
-import SignIn from '../../components/pages/sign-in';
-import AuthLayout from '../../components/template/auth-layout';
+import SignIn from "../../components/pages/sign-in";
+import AuthLayout from "../../components/template/auth-layout";
 
 const SignInPage: NextPage = () => {
   return (
     <AuthLayout>
-        <SignIn />
+      <SignIn />
     </AuthLayout>
-  )
-}
-
+  );
+};
 
 export default SignInPage;

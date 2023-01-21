@@ -1,19 +1,21 @@
-import { NextPage } from 'next';
-import Header from '../../components/molecules/header';
+import { NextPage } from "next";
+import Header from "../../components/molecules/header";
 
-import Dashboard from '../../components/pages/dashboard';
-import AuthenticatedLayout from '../../components/template/autenticated';
-import { TransactionProvider } from '../../context/transaction';
+import Dashboard from "../../components/pages/dashboard";
+import AuthenticatedLayout from "../../components/template/autenticated";
+import { TransactionProvider } from "../../context/transaction";
+import { CategoryProvider } from "../../context/category";
 
 const DashboardPage: NextPage = () => {
   return (
-    <TransactionProvider>
-      <AuthenticatedLayout>
+    <CategoryProvider>
+      <TransactionProvider>
+        <AuthenticatedLayout>
           <Dashboard />
-      </AuthenticatedLayout>
-    </TransactionProvider>
-  )
-}
-
+        </AuthenticatedLayout>
+      </TransactionProvider>
+    </CategoryProvider>
+  );
+};
 
 export default DashboardPage;
