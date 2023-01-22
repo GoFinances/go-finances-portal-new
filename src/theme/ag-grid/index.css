@@ -1,0 +1,12 @@
+/* set the background color of many elements across the grid */
+.ag-theme-alpine {
+    
+    /* borders */
+    --ag-borders: none;
+}
+
+
+
+.rag-red {
+    color: lightcoral;
+}
