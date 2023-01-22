@@ -2,10 +2,10 @@ import { IResponse } from '../../services/config/IResponse';
 
 import { useMutation, useQuery } from 'react-query'
 
-import { IBalance } from '../../models/transaction/balance';
+import { IBalance } from '../../domain/models/transaction/balance';
 
 import { TransactionService } from '../../services/transaction';
-import { IGetTransactionsFilter } from '../../models/transaction/transaction';
+import { IGetTransactionsFilter } from '../../domain/models/transaction/transaction';
 
 
 const getBalance = async () => {

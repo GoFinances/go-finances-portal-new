@@ -1,6 +1,6 @@
 import { IResponse } from './../../services/config/IResponse';
 import { UserService } from './../../services/user';
-import { CreateUser } from './../../models/user/createUser';
+import { CreateUser } from '../../domain/models/user/createUser';
 import { useMutation } from 'react-query'
 
 

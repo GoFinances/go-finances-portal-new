@@ -1,31 +1,28 @@
-import { ButtonProps } from '@chakra-ui/react'
+import { ButtonProps } from "@chakra-ui/react";
 
+import { FieldErrorsImpl } from "react-hook-form";
 
-import {
-  FieldErrorsImpl,
-} from 'react-hook-form'
+import { IOption } from "../../../domain/models/option";
 
-import { IOption } from '../../../models/option'
+import FormField, { FieldLabel } from "./field";
+import { SelectMenu } from "./select-menu";
 
-import FormField, { FieldLabel } from './field'
-import { SelectMenu } from './select-menu'
-
-export type SelectSizes = 'xs' | 'sm' | 'md' | 'lg'
+export type SelectSizes = "xs" | "sm" | "md" | "lg";
 
 type Props = ButtonProps & {
-  defaultID: string
-  name: string
-  label: FieldLabel
+  defaultID: string;
+  name: string;
+  label: FieldLabel;
   errors: FieldErrorsImpl;
-  size?: SelectSizes
-  options:IOption[]
-  placeholder: string
-  onChange: (value: string | undefined) => void
-}
+  size?: SelectSizes;
+  options: IOption[];
+  placeholder: string;
+  onChange: (value: string | undefined) => void;
+};
 
 const FormSelect = (props: Props) => {
   const {
-    size = 'sm',
+    size = "sm",
     name,
     label,
     errors,
@@ -34,11 +31,11 @@ const FormSelect = (props: Props) => {
     placeholder,
     onChange,
     ...propsElement
-  } = props
+  } = props;
 
   return (
     <FormField name={name} label={label} error={errors[name]}>
-      <SelectMenu 
+      <SelectMenu
         w="100%"
         data-testid={`select-status-${label}`}
         defaultID={defaultID}
@@ -49,10 +46,7 @@ const FormSelect = (props: Props) => {
         {...propsElement}
       />
     </FormField>
-  )
-}
+  );
+};
 
-export default FormSelect
-
-
- 
+export default FormSelect;

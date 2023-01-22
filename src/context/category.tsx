@@ -1,57 +1,63 @@
-import { createContext, ReactNode, useCallback, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
-import * as Icons from 'react-icons/fa'
+import * as Icons from "react-icons/fa";
 
-import { ICategory } from "../models/category/category";
-import { IOption } from "../models/option";
+import { ICategory } from "../domain/models/category/category";
+import { IOption } from "../domain/models/option";
 
 import { useQueryCategories } from "../hooks/queries/category";
 
 interface ICategoryProvider {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export interface ICategoryContext {
-    categories: ICategory[]
-    getCategoriesOption: () => IOption[]
+  categories: ICategory[];
+  getCategoriesOption: () => IOption[];
 }
-
 
 const CategoryContext = createContext<ICategoryContext>({} as ICategoryContext);
 
 const CategoryProvider = ({ children }: ICategoryProvider) => {
-    const [categories, setCategories] = useState<ICategory[]>([])
+  const [categories, setCategories] = useState<ICategory[]>([]);
 
-    const categoryQuery = useQueryCategories();
+  const categoryQuery = useQueryCategories();
 
-    useEffect(() => {
-        if(categoryQuery.data){
-            setCategories(categoryQuery.data.result.map(category => {
-                const [, iconName] = category.icon.split('/');
-                const Icon = (Icons as any)[iconName];
-                
-                return {...category, icon: Icon}
-            }))
-        }
-            
-    },[categoryQuery.data])
+  useEffect(() => {
+    if (categoryQuery.data) {
+      setCategories(
+        categoryQuery.data.result.map((category) => {
+          const [, iconName] = category.icon.split("/");
+          const Icon = (Icons as any)[iconName];
 
-    const getCategoriesOption = useCallback(() => {
-        return categories.map(({ title, id, icon }) => {
-            return { id, description: title, icon }
+          return { ...category, icon: Icon };
         })
-    },[categories])
+      );
+    }
+  }, [categoryQuery.data]);
 
-    
-    return (
-        <CategoryContext.Provider value={{
-            categories,
-            getCategoriesOption
-        }}>
-            {children}
-        </CategoryContext.Provider>
-    )
-}
+  const getCategoriesOption = useCallback(() => {
+    return categories.map(({ title, id, icon }) => {
+      return { id, description: title, icon };
+    });
+  }, [categories]);
 
+  return (
+    <CategoryContext.Provider
+      value={{
+        categories,
+        getCategoriesOption,
+      }}
+    >
+      {children}
+    </CategoryContext.Provider>
+  );
+};
 
 export { CategoryProvider, CategoryContext };

@@ -1,6 +1,6 @@
 import { httpClient } from './config';
 
-import { ICategory } from './../models/category/category';
+import { ICategory } from '../domain/models/category/category';
 
 
 export const CategoryService = {

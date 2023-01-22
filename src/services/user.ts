@@ -1,4 +1,4 @@
-import { CreateUser } from './../models/user/createUser';
+import { CreateUser } from '../domain/models/user/createUser';
 import { httpClient } from './config'
 
   

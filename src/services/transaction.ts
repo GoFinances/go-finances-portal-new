@@ -1,9 +1,9 @@
-import { IResponseTransaction } from './../models/transaction/response-transactions';
+import { IResponseTransaction } from '../domain/models/transaction/response-transactions';
 
 import { httpClient } from './config';
 
-import { IBalance } from '../models/transaction/balance';
-import { IGetTransactionsFilter } from '../models/transaction/transaction';
+import { IBalance } from '../domain/models/transaction/balance';
+import { IGetTransactionsFilter } from '../domain/models/transaction/transaction';
 
 export const TransactionService = {
     balance: () => {

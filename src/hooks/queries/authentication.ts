@@ -1,5 +1,5 @@
 import { IResponse } from '../../services/config/IResponse';
-import { LoginUser, LoginResponse } from '../../models/authentication/loginUser';
+import { LoginUser, LoginResponse } from '../../domain/models/authentication/loginUser';
 import { useMutation } from 'react-query'
 import { AuthenticationService } from '../../services/authentication';
 

@@ -1,5 +1,5 @@
-import { LoginResponse } from './../models/authentication/loginUser';
-import { LoginUser } from '../models/authentication/loginUser'
+import { LoginResponse } from '../domain/models/authentication/loginUser';
+import { LoginUser } from '../domain/models/authentication/loginUser'
 import { httpClient } from './config'
 
   

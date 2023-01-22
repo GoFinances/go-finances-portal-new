@@ -1,50 +1,43 @@
-import { SelectProps } from '@chakra-ui/react'
+import { SelectProps } from "@chakra-ui/react";
 
+import { FieldErrorsImpl, Path, UseFormRegister } from "react-hook-form";
 
-import {
-  FieldErrorsImpl,
-  Path,
-  UseFormRegister,
-} from 'react-hook-form'
+import { IOption } from "../../../domain/models/option";
 
-import { IOption } from '../../../models/option'
+import FormField, { FieldLabel } from "./field";
 
-import FormField, { FieldLabel } from './field'
+import { MultiSelectMenu } from "./select-menu-multi";
 
-import { MultiSelectMenu } from './select-menu-multi'
-
-
-export type SelectSizes = 'xs' | 'sm' | 'md' | 'lg'
-
+export type SelectSizes = "xs" | "sm" | "md" | "lg";
 
 type Props = SelectProps & {
-  name: string
-  label: FieldLabel
+  name: string;
+  label: FieldLabel;
   errors: FieldErrorsImpl;
   fieldRegister: Path<any>;
   register: UseFormRegister<any>;
-  size?: SelectSizes
-  options:IOption[]
-  placeholder: string
-  onChange: (value: string[] | undefined) => void
-}
+  size?: SelectSizes;
+  options: IOption[];
+  placeholder: string;
+  onChange: (value: string[] | undefined) => void;
+};
 
 const FormSelectMulti = (props: Props) => {
   const {
     onChange,
     register,
     fieldRegister,
-    size = 'sm',
+    size = "sm",
     name,
     label,
     errors,
     options,
     ...selectProps
-  } = props
-  
+  } = props;
+
   return (
     <FormField name={name} label={label} error={errors[name]}>
-      <MultiSelectMenu 
+      <MultiSelectMenu
         label={label.text}
         options={options}
         onChange={onChange}
@@ -53,10 +46,7 @@ const FormSelectMulti = (props: Props) => {
         {...selectProps}
       />
     </FormField>
-  )
-}
+  );
+};
 
-export default FormSelectMulti
-
-
- 
+export default FormSelectMulti;
